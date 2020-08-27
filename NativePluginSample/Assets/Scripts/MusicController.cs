@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,16 +23,35 @@ public class MusicController : MonoBehaviour
 
     static AndroidJavaObject plugin = null;
 
+    [DllImport("__Internal")]
+    private static extern void Hello();
+
+    [DllImport("__Internal")]
+    private static extern void SetHello(string str);
+
+    [DllImport("__Internal")]
+    private static extern string GetHello();
+
     [SerializeField] private Text ResultText = default;
 
     private void Start()
     {
-        plugin = new AndroidJavaObject($"{PLUGIN_PACKAGE_NAME}.{JAVA_CLASS_NAME}");
+        if (Application.platform == RuntimePlatform.Android)
+            plugin = new AndroidJavaObject($"{PLUGIN_PACKAGE_NAME}.{JAVA_CLASS_NAME}");
     }
-
+    
     public void OnClickPlayButton()
     {
         ResultText.text = "Click Play";
+
+        if (Application.platform == RuntimePlatform.Android)
+            CallPlay4Android();
+        else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            CallPlay4IPhone();
+    }
+
+    private void CallPlay4Android()
+    {
         try
         {
             string[] names = { "EmptyDream.mid", "Mistletoe.mid", "Mistletoe_mix1.mid" };
@@ -55,10 +75,22 @@ public class MusicController : MonoBehaviour
         }
     }
 
+    private void CallPlay4IPhone()
+    {
+        Hello();
+
+        SetHello("Hello World");
+        ResultText.text = GetHello();
+    }
+
     public void OnClickStopButton()
     {
+        bool result =false;
         ResultText.text = "Click Stop";
-        bool result = plugin.Call<bool>(STOP_METHOD);
+
+        if(Application.platform == RuntimePlatform.Android)
+            result = plugin.Call<bool>(STOP_METHOD);
+
         if (result)
             ResultText.text = "Stop!!";
         else

@@ -42,6 +42,13 @@ public class CallNativeMethod : MonoBehaviour
     /// </summary>
     private void Start()
     {
+#if UNITY_ANDROID
+        CallMethod();
+#endif
+    }
+
+    private void CallMethod()
+    {
         float value = 0.0f;
         string method = string.Empty;
 
