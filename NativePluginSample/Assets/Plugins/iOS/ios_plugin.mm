@@ -21,6 +21,16 @@ char* GetHello(){
     retC[strlen(ch)] = '\0';
     return retC;
 }
+
+void PlayMusic(const char *ch){
+    NSString *path = [NSString stringWithCString:ch encoding:NSUTF8StringEncoding];
+    [Sample playMusicWithPath:path];
+}
+
+void StopMusic(){
+    [Sample stopMusic];
+}
+
 #ifdef __cplusplus
 }
 #endif

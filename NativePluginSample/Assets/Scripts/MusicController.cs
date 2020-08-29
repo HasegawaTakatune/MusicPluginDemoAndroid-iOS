@@ -32,7 +32,15 @@ public class MusicController : MonoBehaviour
     [DllImport("__Internal")]
     private static extern string GetHello();
 
+    [DllImport("__Internal")]
+    private static extern void PlayMusic(string path);
+
+    [DllImport("__Internal")]
+    private static extern void StopMusic();
+
     [SerializeField] private Text ResultText = default;
+
+    private string[] names = { "EmptyDream.mid", "Mistletoe.mid", "Mistletoe_mix1.mid" };
 
     private void Start()
     {
@@ -54,7 +62,6 @@ public class MusicController : MonoBehaviour
     {
         try
         {
-            string[] names = { "EmptyDream.mid", "Mistletoe.mid", "Mistletoe_mix1.mid" };
             bool result = false;
 
             plugin.Call<bool>(PLAY_METHOD, Application.persistentDataPath + "/" + names[0]);
@@ -77,10 +84,17 @@ public class MusicController : MonoBehaviour
 
     private void CallPlay4IPhone()
     {
-        Hello();
+        string filePath = Application.streamingAssetsPath + "/EmptyDream.mid";
 
-        SetHello("Hello World");
-        ResultText.text = GetHello();
+        //Hello();
+        PlayMusic(filePath);
+
+        SetHello(filePath);
+        if (System.IO.File.Exists(filePath)) ResultText.text = "Exists!!\n";
+        else ResultText.text = "Not found!!\n";
+
+        ResultText.text += GetHello();
+        //ResultText.text = "Play!!";
     }
 
     public void OnClickStopButton()
