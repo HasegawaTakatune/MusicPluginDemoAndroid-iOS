@@ -1,3 +1,5 @@
+![Source Code Size](https://img.shields.io/github/languages/code-size/HasegawaTakatune/MusicPluginDemoAndroid-iOS)  
+  
 # MusicPluginDemoAndroid-iOS  
   
 # 概要  
