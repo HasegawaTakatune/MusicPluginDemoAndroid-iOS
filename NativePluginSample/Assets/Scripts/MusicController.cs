@@ -24,7 +24,7 @@ public class MusicController : MonoBehaviour
     static AndroidJavaObject plugin = null;
 
     [DllImport("__Internal")]
-    private static extern void Hello();
+    private static extern void SetBackgroundMusic();
 
     [DllImport("__Internal")]
     private static extern void SetHello(string str);
@@ -46,6 +46,8 @@ public class MusicController : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
             plugin = new AndroidJavaObject($"{PLUGIN_PACKAGE_NAME}.{JAVA_CLASS_NAME}");
+        else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            SetBackgroundMusic();
     }
     
     public void OnClickPlayButton()
@@ -102,8 +104,10 @@ public class MusicController : MonoBehaviour
         bool result =false;
         ResultText.text = "Click Stop";
 
-        if(Application.platform == RuntimePlatform.Android)
+        if (Application.platform == RuntimePlatform.Android)
             result = plugin.Call<bool>(STOP_METHOD);
+        else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            StopMusic();
 
         if (result)
             ResultText.text = "Stop!!";

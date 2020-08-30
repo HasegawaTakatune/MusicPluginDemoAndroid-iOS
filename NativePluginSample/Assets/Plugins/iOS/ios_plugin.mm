@@ -3,17 +3,17 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-void Hello(){
-    [Sample hello];
+void SetBackgroundMusic(){
+    [MusicController4iOS setBackgroundMusic];
 }
 
 void SetHello(const char *ch){
     NSString *str = [NSString stringWithCString:ch encoding:NSUTF8StringEncoding];
-    [Sample setHelloWithStr:str];
+    [MusicController4iOS setHelloWithStr:str];
 }
 
 char* GetHello(){
-    NSString* str = [Sample getHello];
+    NSString* str = [MusicController4iOS getHello];
     
     const char *ch = (char *)[str UTF8String];
     char* retC = (char*)malloc(strlen(ch) + 1);
@@ -24,11 +24,11 @@ char* GetHello(){
 
 void PlayMusic(const char *ch){
     NSString *path = [NSString stringWithCString:ch encoding:NSUTF8StringEncoding];
-    [Sample playMusicWithPath:path];
+    [MusicController4iOS playMusicWithPath:path];
 }
 
 void StopMusic(){
-    [Sample stopMusic];
+    [MusicController4iOS stopMusic];
 }
 
 #ifdef __cplusplus
