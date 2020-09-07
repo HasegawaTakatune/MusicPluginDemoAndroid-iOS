@@ -10,7 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/android_plugin" />
+            <option value="$PROJECT_DIR$/native_plugin_sample_for_android" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

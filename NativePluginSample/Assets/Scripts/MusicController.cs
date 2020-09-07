@@ -11,12 +11,14 @@ public class MusicController : MonoBehaviour
     /// <summary>
     /// プラグインのパッケージ名
     /// </summary>
-    private const string PLUGIN_PACKAGE_NAME = "com.reryka.calculation";
+    //private const string PLUGIN_PACKAGE_NAME = "com.reryka.calculation";
+    private const string PLUGIN_PACKAGE_NAME = "com.reryka.native_plugin_sample_for_android";
 
     /// <summary>
     /// クラス名
     /// </summary>
-    private const string JAVA_CLASS_NAME = "MediaController";
+    //private const string JAVA_CLASS_NAME = "MediaController";
+    private const string JAVA_CLASS_NAME = "MediaPlayerService";
 
     /// <summary>
     /// Androidプラグインメソッド名：曲再生
@@ -117,11 +119,8 @@ public class MusicController : MonoBehaviour
 
             // 曲ファイルのパスを渡して再生
             plugin.Call<bool>(PLAY_METHOD, Application.persistentDataPath + "/" + names[0]);
-            for (int i = 1; i < names.Length; i++)
-                result = plugin.Call<bool>(NEXT_PLAY_METHOD, Application.persistentDataPath + "/" + names[i]);
-
-            //bool result = plugin.Call<bool>(PLAY_METHOD);
-            //bool result = plugin.Call<bool>(PLAY_METHOD, filePath);            
+            //for (int i = 1; i < names.Length; i++)
+            //    result = plugin.Call<bool>(NEXT_PLAY_METHOD, Application.persistentDataPath + "/" + names[i]);
 
             if (result)
                 ResultText.text = "Play!!";
